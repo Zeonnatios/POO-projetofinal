@@ -1,26 +1,59 @@
 package atividadeavaliativa;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Matheus Antonio da Silva
  */
 public class Carro {
 
-    private int idCarro;
     private String modelo;
     private String marca;
     private int ano;
     private String placa;
     private String carroceria;
     private int kilometragem;
+    private String tanque;
+    private double preco;
     private boolean disponivel;
 
-    public int getIdCarro() {
-        return idCarro;
+    public void cadastrar() {
+
+        Scanner s = new Scanner(System.in);
+        System.out.println("Qual é a marca do carro ?");
+        marca = s.next();
+        System.out.println("Qual o modelo do carro ?");
+        modelo = s.next();
+        System.out.println("Ano de fabricação ?");
+        ano = s.nextInt();
+        System.out.println("Informe a placa do carro: ");
+        placa = s.next();
+        System.out.println("Tipo de carroceria ?");
+        carroceria = s.next();
+        System.out.println("Kilometros rodados totais ?");
+        kilometragem = s.nextInt();
+        System.out.println("Quantidade de combustivel atual ? (Vazio, cheio, metade, 1/4, 3/4)");
+        tanque = s.next();
+        System.out.println("Preço do carro ?");
+        preco = s.nextDouble();
+        disponivel = true;
     }
 
-    public void setIdCarro(int idCarro) {
-        this.idCarro = idCarro;
+    public void infoCarro() {
+        System.out.println("-------------------------------------------------");
+        System.out.println("--------------------   CARRO --------------------");
+        System.out.println("Marca: " + marca + "\n"
+                + "Modelo: " + modelo + "\n"
+                + "Ano: " + ano + "\n"
+                + "Placa: " + placa + "\n"
+                + "Carroceria: " + carroceria + "\n"
+                + "Kilometragem: " + kilometragem + "\n"
+                + "Tanque: " + tanque + "\n"
+                + "Preço: " + preco + "\n");
+        System.out.println("-------------------------------------------------");
+        System.out.println("-------------------------------------------------");
+
     }
 
     public String getModelo() {
@@ -69,6 +102,22 @@ public class Carro {
 
     public void setKilometragem(int kilometragem) {
         this.kilometragem = kilometragem;
+    }
+
+    public String getTanque() {
+        return tanque;
+    }
+
+    public void setTanque(String tanque) {
+        this.tanque = tanque;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 
     public boolean isDisponivel() {
