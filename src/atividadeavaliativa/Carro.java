@@ -56,6 +56,23 @@ public class Carro {
 
     }
 
+    @Override
+    public String toString() {
+        String s = "-------------------------------------------------\n"
+                + "--------------------   CARRO --------------------\n"
+                + "Marca: " + marca + "\n"
+                + "Modelo: " + modelo + "\n"
+                + "Ano: " + ano + "\n"
+                + "Placa: " + placa + "\n"
+                + "Carroceria: " + carroceria + "\n"
+                + "Kilometragem: " + kilometragem + "\n"
+                + "Tanque: " + tanque + "\n"
+                + "Preço: " + preco + "\n"
+                + "-------------------------------------------------\n"
+                + "-------------------------------------------------\n";
+        return s;
+    }
+
     public String getModelo() {
         return modelo;
     }
