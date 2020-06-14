@@ -21,15 +21,19 @@ public class BancoDeDados {
     Map<String, Carro> byMarca = new HashMap<>();
     Map<String, Carro> byModelo = new HashMap<>();
     Map<Integer, Carro> byId = new HashMap<>();
-
+    Map<Double, Carro> byPreco = new HashMap<>();
     Set<Caixa> operadorCaixa = new HashSet<>();
+    private int contador = 1;
 
     public void addCarro(Carro c) {
+        c.cadastrar();
+        c.setIdCarro(contador);
+        contador++;
         listaCarro.add(c);
-
         byId.put(c.getIdCarro(), c);
         byMarca.put(c.getMarca(), c);
         byModelo.put(c.getModelo(), c);
+        byPreco.put(c.getPreco(), c);
         List<Carro> lista = byCarroceria.get(c.getCarroceria());
         if (lista == null) {
             lista = new ArrayList<>();
@@ -106,6 +110,16 @@ public class BancoDeDados {
         return lista;
     }
 
+    public List<Carro> listByPreco(Double pInicial, Double pFinal) {
+        List<Carro> lista = new ArrayList<>();
+        for (Map.Entry<Double, Carro> e : byPreco.entrySet()) {
+            if (e.getValue().getPreco() >= pInicial && e.getValue().getPreco() <= pFinal && e.getValue().isDisponivel()) {
+                lista.add(e.getValue());
+            }
+        }
+        return lista;
+    }
+
     public List<Carro> listByCarroceria(String carroceria) {
         List<Carro> lista = new ArrayList<>();
         SortedMap<String, List<Carro>> submapa = byCarroceria.tailMap(carroceria);
@@ -131,6 +145,7 @@ public class BancoDeDados {
         byId.remove(c.getIdCarro());
         byMarca.remove(c.getMarca());
         byModelo.remove(c.getModelo());
+        byPreco.remove(c.getPreco());
         listaCarro.remove(c);
 
     }

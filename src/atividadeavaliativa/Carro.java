@@ -18,7 +18,6 @@ public class Carro {
     private String tanque;
     private double preco;
     private boolean disponivel;
-    int pos = 1;
 
     public void cadastrar() {
 
@@ -40,8 +39,6 @@ public class Carro {
         System.out.println("Preço do carro ?");
         preco = s.nextDouble();
         disponivel = true;
-        idCarro = pos;
-        pos++;
     }
 
     public void infoCarro() {

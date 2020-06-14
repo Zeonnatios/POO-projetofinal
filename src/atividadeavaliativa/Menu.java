@@ -21,9 +21,7 @@ public class Menu {
         } else {
             List<Carro> listaCarros = banco.listByMarca(marca);
             for (Carro c : listaCarros) {
-                if (c.isDisponivel()) {
-                    c.infoCarro();
-                }
+                c.infoCarro();
             }
         }
     }
@@ -43,17 +41,17 @@ public class Menu {
     }
 
     //Listagem por Carroceria
-    public static void listarTipoCarroceria(String c) {
+    public static void listarTipoCarroceria(String carroceria) {
         if (banco.listaCarro.isEmpty()) {
             System.out.println("Não há carros cadastrados no BANCO DE DADOS!");
-        } else if (banco.listByCarroceria(c).isEmpty()) {
+        } else if (banco.listByCarroceria(carroceria).isEmpty()) {
             System.out.println("Não há carros com carroceria cadastrados no BANCO DE DADOS");
         } else {
-            List<Carro> listaCarros = banco.listByCarroceria(c);
+            List<Carro> listaCarros = banco.listByCarroceria(carroceria);
             for (int i = 0; i < listaCarros.size(); i++) {
-                Carro l = listaCarros.get(i);
-                if (l.isDisponivel()) {
-                    l.infoCarro();
+                Carro c = listaCarros.get(i);
+                if (c.isDisponivel()) {
+                    c.infoCarro();
                 }
             }
         }
@@ -68,10 +66,24 @@ public class Menu {
         } else {
             List<Carro> listaCarros = banco.listbyId(id);
             for (int i = 0; i < listaCarros.size(); i++) {
-                Carro l = listaCarros.get(i);
-                l.infoCarro();
+                Carro c = listaCarros.get(i);
+                c.infoCarro();
             }
         }
+    }
+
+    public static void listarPreco(Double pInicial, Double pFinal) {
+        if (banco.listaCarro.isEmpty()) {
+            System.out.println("Não há carros cadastrados no BANCO DE DADOS!");
+        } else if (banco.listByPreco(pInicial, pFinal).isEmpty()) {
+            System.out.println("Carro pesquisado por preço entre: " + pInicial + " e " + pFinal + " , não encontrado no BANCO DE DADOS!");
+        } else {
+            List<Carro> listaCarros = banco.listByPreco(pInicial, pFinal);
+            for (Carro c : listaCarros) {
+                c.infoCarro();
+            }
+        }
+
     }
 
     // menu com entrada de dados
@@ -86,6 +98,7 @@ public class Menu {
                 + "\n6 - CONSULTAR POR MODELO"
                 + "\n7 - CONSULTAR POR TIPO DE CARROCERIA"
                 + "\n8 - CONSULTAR POR ID"
+                + "\n9 - CONSULTAR POR PREÇOS"
                 + "\n0 - SAIR DO SISTEMA"
                 + "\n---------------------------------------------");
         System.out.print("Digite a opção -->>");
@@ -105,7 +118,6 @@ public class Menu {
                 case 1:
                     System.out.println("Cadastrando Carro!");
                     Carro c = new Carro();
-                    c.cadastrar();
                     banco.addCarro(c);
                     break;
 
@@ -167,6 +179,15 @@ public class Menu {
                     System.out.print("IDENTIFICADOR: ");
                     int idCarro = sc.nextInt();
                     listarId(idCarro);
+                    break;
+
+                case 9:
+                    System.out.println("Informe o Preço Inicial e o Preço Final para realização da consulta:");
+                    System.out.print("Preço Inicial:");
+                    double pInicial = sc.nextDouble();
+                    System.out.print("Preço Final:");
+                    double pFinal = sc.nextDouble();
+                    listarPreco(pInicial, pFinal);
                     break;
 
                 case 0:
