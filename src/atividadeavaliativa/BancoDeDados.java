@@ -43,31 +43,51 @@ public class BancoDeDados {
 
     public void addVenda(Carro c) {
         Caixa venda = new Venda(c, c.getPreco());
+        inativarCarro(c.getIdCarro());
         System.out.println("---------------------------");
         System.out.println("Venda efetuada com sucesso!");
         venda.info();
     }
 
     public Carro findById(int idCarro) {
-        return byId.get(idCarro);
+        Carro c = byId.get(idCarro);
+        if (c.isDisponivel()) {
+            return byId.get(idCarro);
+        }
+        return null;
     }
 
     public Carro findByMarca(String marca) {
-        return byMarca.get(marca);
+        Carro c = byMarca.get(marca);
+        if (c.isDisponivel()) {
+            return byMarca.get(marca);
+        }
+        return null;
     }
 
     public Carro findByModelo(String modelo) {
-        return byModelo.get(modelo);
+        Carro c = byModelo.get(modelo);
+        if (c.isDisponivel()) {
+            return byModelo.get(modelo);
+        }
+        return null;
     }
 
-    public void listByPreco(String carroceria) {
+    public List<Carro> listbyId(int id) {
+        List<Carro> lista = new ArrayList<>();
+        for (Map.Entry<Integer, Carro> e : byId.entrySet()) {
+            if (e.getValue().getIdCarro() == id && e.getValue().isDisponivel()) {
+                lista.add(e.getValue());
+            }
 
+        }
+        return lista;
     }
 
     public List<Carro> listByMarca(String marca) {
         List<Carro> lista = new ArrayList<>();
         for (Map.Entry<String, Carro> e : byMarca.entrySet()) {
-            if (e.getValue().getMarca().equals(marca)) {
+            if (e.getValue().getMarca().equals(marca) && e.getValue().isDisponivel()) {
                 lista.add(e.getValue());
             }
 
@@ -78,7 +98,7 @@ public class BancoDeDados {
     public List<Carro> listByModelo(String modelo) {
         List<Carro> lista = new ArrayList<>();
         for (Map.Entry<String, Carro> e : byModelo.entrySet()) {
-            if (e.getValue().getModelo().equals(modelo)) {
+            if (e.getValue().getModelo().equals(modelo) && e.getValue().isDisponivel()) {
                 lista.add(e.getValue());
             }
 
@@ -101,18 +121,23 @@ public class BancoDeDados {
         return lista;
     }
 
-    public void inativarCarro(Carro c) {
-
-        for (Carro objCarro : listaCarro) {
-            if (objCarro == c) {
-                objCarro.setDisponivel(false);
-            }
-        }
+    public void removerCarro(Carro c) {
+        byId.remove(c.getIdCarro());
         byMarca.remove(c.getMarca());
         byModelo.remove(c.getModelo());
         List<Carro> lista = byCarroceria.get(c.getCarroceria());
         if (lista != null) {
             lista.remove(c);
         }
+    }
+
+    public void inativarCarro(int id) {
+
+        for (Carro objCarro : listaCarro) {
+            if (objCarro.getIdCarro() == id) {
+                objCarro.setDisponivel(false);
+            }
+        }
+
     }
 }

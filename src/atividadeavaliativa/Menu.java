@@ -42,10 +42,27 @@ public class Menu {
 
     //Listagem por Carroceria
     public static void listarTipoCarroceria(String c) {
-        if (banco.listByCarroceria(c).isEmpty()) {
-            System.out.println("Não há carros com essas especificações cadastrados no BANCO DE DADOS");
+        if (banco.listaCarro.isEmpty()) {
+            System.out.println("Não há carros cadastrados no BANCO DE DADOS!");
+        } else if (banco.listByCarroceria(c).isEmpty()) {
+            System.out.println("Não há carros com carroceria cadastrados no BANCO DE DADOS");
         } else {
             List<Carro> listaCarros = banco.listByCarroceria(c);
+            for (int i = 0; i < listaCarros.size(); i++) {
+                Carro l = listaCarros.get(i);
+                l.infoCarro();
+            }
+        }
+    }
+
+    //pelo ID
+    public static void listarId(int id) {
+        if (banco.listaCarro.isEmpty()) {
+            System.out.println("Não há carros cadastrados no BANCO DE DADOS!");
+        } else if (banco.listbyId(id).isEmpty()) {
+            System.out.println("Carro pesquisado por ID: " + id + ", não encontrado no BANCO DE DADOS!");
+        } else {
+            List<Carro> listaCarros = banco.listbyId(id);
             for (int i = 0; i < listaCarros.size(); i++) {
                 Carro l = listaCarros.get(i);
                 l.infoCarro();
@@ -131,8 +148,7 @@ public class Menu {
                     System.out.println("Informe o ID do carro que deseja buscar: ");
                     System.out.print("IDENTIFICADOR: ");
                     int idCarro = sc.nextInt();
-                    Carro find = new Carro();
-                    System.out.println(find = banco.findById(idCarro));
+                    listarId(idCarro);
                     break;
 
                 case 0:

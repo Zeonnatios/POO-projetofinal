@@ -21,7 +21,7 @@ public class Venda extends Caixa {
         System.out.println(carro);
         System.out.println("Data de Venda: " + dataVenda);
         System.out.println("Valor da Venda: " + valor);
-        System.out.println("Lucro adquirido: " + carro.getPreco() * 0.13);
+        System.out.println("Lucro adquirido: " + carro.getPreco() * 0.23);
         System.out.println("----------------------------------------------------------------");
     }
 }
