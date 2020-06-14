@@ -18,13 +18,16 @@ public class BancoDeDados {
 
     //Usar MAP
     Set<Carro> listaCarro = new HashSet<>();
+    Set<Caixa> operadorCaixa = new HashSet<>();
     SortedMap<String, List<Carro>> byCarroceria = new TreeMap<>();
     Map<String, Carro> byMarca = new HashMap<>();
     Map<String, Carro> byModelo = new HashMap<>();
+    Map<Integer, Carro> byId = new HashMap<>();
 
     public void addCarro(Carro c) {
         listaCarro.add(c);
 
+        byId.put(c.getIdCarro(), c);
         byMarca.put(c.getMarca(), c);
         byModelo.put(c.getModelo(), c);
         List<Carro> lista = byCarroceria.get(c.getCarroceria());
@@ -36,6 +39,17 @@ public class BancoDeDados {
         System.out.println("-----------------------------");
         System.out.println("Carro cadastrado com sucesso!");
         c.infoCarro();
+    }
+
+    public void addVenda(Carro c) {
+        Caixa venda = new Venda(c, c.getPreco());
+        System.out.println("---------------------------");
+        System.out.println("Venda efetuada com sucesso!");
+        venda.info();
+    }
+
+    public Carro findById(int idCarro) {
+        return byId.get(idCarro);
     }
 
     public Carro findByMarca(String marca) {
@@ -50,18 +64,24 @@ public class BancoDeDados {
 
     }
 
-    public List<Carro> listByMarca() {
+    public List<Carro> listByMarca(String marca) {
         List<Carro> lista = new ArrayList<>();
         for (Map.Entry<String, Carro> e : byMarca.entrySet()) {
-            lista.add(e.getValue());
+            if (e.getValue().getMarca().equals(marca)) {
+                lista.add(e.getValue());
+            }
+
         }
         return lista;
     }
 
-    public List<Carro> listByModelo() {
+    public List<Carro> listByModelo(String modelo) {
         List<Carro> lista = new ArrayList<>();
         for (Map.Entry<String, Carro> e : byModelo.entrySet()) {
-            lista.add(e.getValue());
+            if (e.getValue().getModelo().equals(modelo)) {
+                lista.add(e.getValue());
+            }
+
         }
         return lista;
     }
@@ -81,8 +101,13 @@ public class BancoDeDados {
         return lista;
     }
 
-    public void removerCarro(Carro c) {
-        listaCarro.remove(c);
+    public void inativarCarro(Carro c) {
+
+        for (Carro objCarro : listaCarro) {
+            if (objCarro == c) {
+                objCarro.setDisponivel(false);
+            }
+        }
         byMarca.remove(c.getMarca());
         byModelo.remove(c.getModelo());
         List<Carro> lista = byCarroceria.get(c.getCarroceria());
@@ -90,5 +115,4 @@ public class BancoDeDados {
             lista.remove(c);
         }
     }
-
 }

@@ -8,6 +8,7 @@ import java.util.Scanner;
  */
 public class Carro {
 
+    private int idCarro;
     private String modelo;
     private String marca;
     private int ano;
@@ -17,6 +18,7 @@ public class Carro {
     private String tanque;
     private double preco;
     private boolean disponivel;
+    int pos = 1;
 
     public void cadastrar() {
 
@@ -38,12 +40,15 @@ public class Carro {
         System.out.println("Preço do carro ?");
         preco = s.nextDouble();
         disponivel = true;
+        idCarro = pos;
+        pos++;
     }
 
     public void infoCarro() {
         System.out.println("-------------------------------------------------");
-        System.out.println("--------------------   CARRO --------------------");
-        System.out.println("Marca: " + marca + "\n"
+        System.out.println("--------------------  CARRO  --------------------");
+        System.out.println("ID: " + idCarro + "\n"
+                + "Marca: " + marca + "\n"
                 + "Modelo: " + modelo + "\n"
                 + "Ano: " + ano + "\n"
                 + "Placa: " + placa + "\n"
@@ -58,8 +63,8 @@ public class Carro {
 
     @Override
     public String toString() {
-        String s = "-------------------------------------------------\n"
-                + "--------------------   CARRO --------------------\n"
+        String s = "--------------------  CARRO  --------------------\n"
+                + "ID: " + idCarro + "\n"
                 + "Marca: " + marca + "\n"
                 + "Modelo: " + modelo + "\n"
                 + "Ano: " + ano + "\n"
@@ -68,9 +73,16 @@ public class Carro {
                 + "Kilometragem: " + kilometragem + "\n"
                 + "Tanque: " + tanque + "\n"
                 + "Preço: " + preco + "\n"
-                + "-------------------------------------------------\n"
                 + "-------------------------------------------------\n";
         return s;
+    }
+
+    public int getIdCarro() {
+        return idCarro;
+    }
+
+    public void setIdCarro(int idCarro) {
+        this.idCarro = idCarro;
     }
 
     public String getModelo() {

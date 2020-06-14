@@ -13,27 +13,43 @@ public class Menu {
     private static BancoDeDados banco = new BancoDeDados();
 
     //Listagem por marca
-    public static void listarMarca() {
-        List<Carro> listaCarros = banco.listByMarca();
-        for (Carro c : listaCarros) {
-            c.infoCarro();
+    public static void listarMarca(String marca) {
+        if (banco.listaCarro.isEmpty()) {
+            System.out.println("Não há carros cadastrados no BANCO DE DADOS!");
+        } else if (banco.listByMarca(marca).isEmpty()) {
+            System.out.println("Não há essa marca de carros no sistema!");
+        } else {
+            List<Carro> listaCarros = banco.listByMarca(marca);
+            for (Carro c : listaCarros) {
+                c.infoCarro();
+            }
         }
     }
 
     //Listagem por modelo
-    public static void listarModelo() {
-        List<Carro> listaCarros = banco.listByModelo();
-        for (Carro c : listaCarros) {
-            c.infoCarro();
+    public static void listarModelo(String modelo) {
+        if (banco.listaCarro.isEmpty()) {
+            System.out.println("Não há carros cadastrados no BANCO DE DADOS!");
+        } else if (banco.listByModelo(modelo).isEmpty()) {
+            System.out.println("Não há esse modelo cadastrados no BANCO DE DADOS!");
+        } else {
+            List<Carro> listaCarros = banco.listByModelo(modelo);
+            for (Carro c : listaCarros) {
+                c.infoCarro();
+            }
         }
     }
 
     //Listagem por Carroceria
     public static void listarTipoCarroceria(String c) {
-        List<Carro> listaCarros = banco.listByCarroceria(c);
-        for (int i = 0; i < listaCarros.size(); i++) {
-            Carro l = listaCarros.get(i);
-            l.infoCarro();
+        if (banco.listByCarroceria(c).isEmpty()) {
+            System.out.println("Não há carros com essas especificações cadastrados no BANCO DE DADOS");
+        } else {
+            List<Carro> listaCarros = banco.listByCarroceria(c);
+            for (int i = 0; i < listaCarros.size(); i++) {
+                Carro l = listaCarros.get(i);
+                l.infoCarro();
+            }
         }
     }
 
@@ -48,7 +64,7 @@ public class Menu {
                 + "\n5 - CONSULTAR POR MARCA"
                 + "\n6 - CONSULTAR POR MODELO"
                 + "\n7 - CONSULTAR POR TIPO DE CARROCERIA"
-                + "\n8 - CONSULTAR POR PREÇO"
+                + "\n8 - CONSULTAR POR ID"
                 + "\n0 - SAIR DO SISTEMA"
                 + "\n---------------------------------------------");
         System.out.print("Digite a opção -->>");
@@ -66,14 +82,20 @@ public class Menu {
             switch (menuOpcoes()) {
 
                 case 1:
+                    System.out.println("Cadastrando Carro!");
                     Carro c = new Carro();
                     c.cadastrar();
                     banco.addCarro(c);
-                    System.out.println("Cadastrando Carro!");
                     break;
 
                 case 2:
-                    System.out.println("Vender Carro!");
+                    System.out.println("Vendendo Carro!");
+                    System.out.println("Informe o ID do carro que deseja buscar: ");
+                    System.out.print("IDENTIFICADOR: ");
+                    int idCar = sc.nextInt();
+                    Carro busca = new Carro();
+                    busca = banco.findById(idCar);
+                    banco.addVenda(busca);
                     break;
 
                 case 3:
@@ -88,14 +110,14 @@ public class Menu {
                     System.out.println("Informe a marca de carro a ser pesquisada:");
                     System.out.print("Marca: ");
                     String marca = sc.next();
-                    listarMarca();
+                    listarMarca(marca);
                     break;
 
                 case 6:
                     System.out.println("Informe o modelo de carro a ser pesquisada:");
                     System.out.print("Modelo: ");
                     String modelo = sc.next();
-                    listarModelo();
+                    listarModelo(modelo);
                     break;
 
                 case 7:
@@ -106,6 +128,11 @@ public class Menu {
                     break;
 
                 case 8:
+                    System.out.println("Informe o ID do carro que deseja buscar: ");
+                    System.out.print("IDENTIFICADOR: ");
+                    int idCarro = sc.nextInt();
+                    Carro find = new Carro();
+                    System.out.println(find = banco.findById(idCarro));
                     break;
 
                 case 0:

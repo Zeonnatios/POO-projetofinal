@@ -6,41 +6,22 @@ import java.time.LocalDate;
  *
  * @author Matheus Antonio da Silva
  */
-public class Venda {
+public class Venda extends Caixa {
 
-    private static int qtdVendas;
-
-    private int idVenda;
-    private Carro carro;
-    private LocalDate dataVenda;
-
-    public Venda() {
-        qtdVendas++;
-        this.idVenda = qtdVendas;
+    //CONSTRUTOR
+    public Venda(Carro p, Double valor) {
+        super(p, valor + valor * 0.23);
     }
 
-    public int getIdVenda() {
-        return idVenda;
+    public void info() {
+        super.info();
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("--------------------  INFORMAÇÕES DE VENDA  --------------------");
+        System.out.println("------------------------  CARRO VENDIDO  -----------------------");
+        System.out.println(carro);
+        System.out.println("Data de Venda: " + dataVenda);
+        System.out.println("Valor da Venda: " + valor);
+        System.out.println("Lucro adquirido: " + carro.getPreco() * 0.13);
+        System.out.println("----------------------------------------------------------------");
     }
-
-    public void setIdVenda(int idVenda) {
-        this.idVenda = idVenda;
-    }
-
-    public Carro getCarro() {
-        return carro;
-    }
-
-    public void setCarro(Carro carro) {
-        this.carro = carro;
-    }
-
-    public LocalDate getDataVenda() {
-        return dataVenda;
-    }
-
-    public void setDataVenda(LocalDate dataVenda) {
-        this.dataVenda = dataVenda;
-    }
-
 }

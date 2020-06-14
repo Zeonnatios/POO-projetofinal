@@ -6,43 +6,25 @@ import java.time.LocalDate;
  *
  * @author Matheus Antonio da Silva
  */
-public class Aluguel {
+public class Aluguel extends Caixa {
 
-    private static int qtdAluguel;
-
-    private int idAluguel;
-    private Carro carro;
-    private LocalDate dataInicio;
     private LocalDate dataFim;
-    private double precoAluguel;
+    private boolean ativo;
 
-    public Aluguel() {
-        qtdAluguel++;
-        this.idAluguel = qtdAluguel;
+    //CONSTRUTOR
+    public Aluguel(Carro p) {
+        super(p);
     }
 
-    public int getIdAluguel() {
-        return idAluguel;
-    }
+    public void InfoAluguel() {
+        System.out.println("----------------------------------------------------------------");
+        System.out.println("-------------------  INFORMAÇÕES DE ALUGUEL  -------------------");
+        System.out.println("------------------------  CARRO VENDIDO  -----------------------");
+        System.out.println(carro);
+        System.out.println("Data de Início: " + dataVenda);
+        System.out.println("Valor do Aluguel: " + valor);
+        System.out.println("----------------------------------------------------------------");
 
-    public void setIdAluguel(int idAluguel) {
-        this.idAluguel = idAluguel;
-    }
-
-    public Carro getCarro() {
-        return carro;
-    }
-
-    public void setCarro(Carro carro) {
-        this.carro = carro;
-    }
-
-    public LocalDate getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(LocalDate dataInicio) {
-        this.dataInicio = dataInicio;
     }
 
     public LocalDate getDataFim() {
@@ -53,12 +35,12 @@ public class Aluguel {
         this.dataFim = dataFim;
     }
 
-    public double getPrecoAluguel() {
-        return precoAluguel;
+    public boolean isDisp() {
+        return ativo;
     }
 
-    public void setPrecoAluguel(double precoAluguel) {
-        this.precoAluguel = precoAluguel;
+    public void setDisp(boolean disp) {
+        this.ativo = disp;
     }
 
 }
