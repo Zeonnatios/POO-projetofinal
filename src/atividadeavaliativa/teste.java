@@ -16,7 +16,7 @@ import java.time.temporal.ChronoUnit;
 public class teste {
 
     public static void main(String[] args) {
-        LocalDate data1 = LocalDate.of(2020, Month.JUNE, 21);
+        LocalDate data1 = LocalDate.of(2020, 7, 21);
         LocalDate hoje = LocalDate.now();
 
         long diferencaEmDias = ChronoUnit.DAYS.between(hoje, data1);

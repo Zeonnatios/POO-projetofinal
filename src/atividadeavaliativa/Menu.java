@@ -21,7 +21,9 @@ public class Menu {
         } else {
             List<Carro> listaCarros = banco.listByMarca(marca);
             for (Carro c : listaCarros) {
-                c.infoCarro();
+                if (c.isDisponivel()) {
+                    c.infoCarro();
+                }
             }
         }
     }
@@ -50,7 +52,9 @@ public class Menu {
             List<Carro> listaCarros = banco.listByCarroceria(c);
             for (int i = 0; i < listaCarros.size(); i++) {
                 Carro l = listaCarros.get(i);
-                l.infoCarro();
+                if (l.isDisponivel()) {
+                    l.infoCarro();
+                }
             }
         }
     }
@@ -107,17 +111,31 @@ public class Menu {
 
                 case 2:
                     System.out.println("Vendendo Carro!");
-                    System.out.println("Informe o ID do carro que deseja buscar: ");
+                    System.out.println("Informe o ID do carro que deseja Vender: ");
                     System.out.print("IDENTIFICADOR: ");
                     int idCar = sc.nextInt();
-                    Carro busca = new Carro();
-                    busca = banco.findById(idCar);
-                    banco.addVenda(busca);
-                    break;
-
+                    Carro carroVenda = new Carro();
+                    carroVenda = banco.findById(idCar);
+                    if (carroVenda == null) {
+                        System.out.println("Carro não encontrado no Banco de Dados");
+                        break;
+                    } else {
+                        banco.addVenda(carroVenda);
+                        break;
+                    }
                 case 3:
                     System.out.println("Aluguel de Carro!");
-                    break;
+                    System.out.println("Informe o ID do carro que deseja Alugar");
+                    int idAluguel = sc.nextInt();
+                    Carro carroAluguel = new Carro();
+                    carroAluguel = banco.findById(idAluguel);
+                    if (carroAluguel == null) {
+                        System.out.println("Carro não encontrado no Banco de Dados");
+                        break;
+                    } else {
+                        banco.addAluguel(carroAluguel);
+                        break;
+                    }
 
                 case 4:
                     System.out.println("Devolução de Carro!");

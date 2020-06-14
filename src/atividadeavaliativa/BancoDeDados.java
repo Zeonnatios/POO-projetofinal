@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -18,11 +17,12 @@ public class BancoDeDados {
 
     //Usar MAP
     Set<Carro> listaCarro = new HashSet<>();
-    Set<Caixa> operadorCaixa = new HashSet<>();
     SortedMap<String, List<Carro>> byCarroceria = new TreeMap<>();
     Map<String, Carro> byMarca = new HashMap<>();
     Map<String, Carro> byModelo = new HashMap<>();
     Map<Integer, Carro> byId = new HashMap<>();
+
+    Set<Caixa> operadorCaixa = new HashSet<>();
 
     public void addCarro(Carro c) {
         listaCarro.add(c);
@@ -44,33 +44,33 @@ public class BancoDeDados {
     public void addVenda(Carro c) {
         Caixa venda = new Venda(c, c.getPreco());
         inativarCarro(c.getIdCarro());
+        operadorCaixa.add(venda);
         System.out.println("---------------------------");
         System.out.println("Venda efetuada com sucesso!");
         venda.info();
     }
 
+    public void addAluguel(Carro c) {
+        Caixa aluguel = new Aluguel(c);
+        aluguel.efetuarAluguel();
+        inativarCarro(c.getIdCarro());
+        operadorCaixa.add(aluguel);
+        System.out.println("---------------------------");
+        System.out.println("Aluguel efetuad com sucesso!");
+    }
+
     public Carro findById(int idCarro) {
-        Carro c = byId.get(idCarro);
-        if (c.isDisponivel()) {
-            return byId.get(idCarro);
-        }
-        return null;
-    }
+        if (this.byId.isEmpty()) {
+            return null;
+        } else {
+            Carro c = byId.get(idCarro);
+            if (c.isDisponivel()) {
+                return byId.get(idCarro);
+            } else {
+                return null;
+            }
 
-    public Carro findByMarca(String marca) {
-        Carro c = byMarca.get(marca);
-        if (c.isDisponivel()) {
-            return byMarca.get(marca);
         }
-        return null;
-    }
-
-    public Carro findByModelo(String modelo) {
-        Carro c = byModelo.get(modelo);
-        if (c.isDisponivel()) {
-            return byModelo.get(modelo);
-        }
-        return null;
     }
 
     public List<Carro> listbyId(int id) {
@@ -109,6 +109,7 @@ public class BancoDeDados {
     public List<Carro> listByCarroceria(String carroceria) {
         List<Carro> lista = new ArrayList<>();
         SortedMap<String, List<Carro>> submapa = byCarroceria.tailMap(carroceria);
+
         for (Map.Entry<String, List<Carro>> mapEntry : submapa.entrySet()) {
             String aux = mapEntry.getKey();
             if (aux.startsWith(carroceria)) {
@@ -122,22 +123,32 @@ public class BancoDeDados {
     }
 
     public void removerCarro(Carro c) {
-        byId.remove(c.getIdCarro());
-        byMarca.remove(c.getMarca());
-        byModelo.remove(c.getModelo());
+
         List<Carro> lista = byCarroceria.get(c.getCarroceria());
         if (lista != null) {
             lista.remove(c);
         }
+        byId.remove(c.getIdCarro());
+        byMarca.remove(c.getMarca());
+        byModelo.remove(c.getModelo());
+        listaCarro.remove(c);
+
     }
 
     public void inativarCarro(int id) {
-
         for (Carro objCarro : listaCarro) {
             if (objCarro.getIdCarro() == id) {
                 objCarro.setDisponivel(false);
             }
         }
-
     }
+
+    public void reativarCarro(int id) {
+        for (Carro objCarro : listaCarro) {
+            if (objCarro.getIdCarro() == id) {
+                objCarro.setDisponivel(true);
+            }
+        }
+    }
+
 }

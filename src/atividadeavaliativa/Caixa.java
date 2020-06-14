@@ -28,6 +28,9 @@ public class Caixa {
 
     }
 
+    public void efetuarAluguel() {
+    }
+
     public Carro getCarro() {
         return carro;
     }
