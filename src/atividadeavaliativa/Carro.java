@@ -19,8 +19,8 @@ public class Carro {
     private double preco;
     private boolean disponivel;
 
+    //Função cadastrar carro
     public void cadastrar() {
-
         Scanner s = new Scanner(System.in);
         System.out.println("Qual é a marca do carro ?");
         marca = s.next();
@@ -41,6 +41,7 @@ public class Carro {
         disponivel = true;
     }
 
+    //Informação do carro
     public void infoCarro() {
         System.out.println("-------------------------------------------------");
         System.out.println("--------------------  CARRO  --------------------");
@@ -58,6 +59,7 @@ public class Carro {
 
     }
 
+    //ToSting imprimir obj carro
     @Override
     public String toString() {
         String s = "--------------------  CARRO  --------------------\n"

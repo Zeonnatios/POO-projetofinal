@@ -72,6 +72,7 @@ public class Menu {
         }
     }
 
+    //Listar por preços
     public static void listarPreco(Double pInicial, Double pFinal) {
         if (banco.listaCarro.isEmpty()) {
             System.out.println("Não há carros cadastrados no BANCO DE DADOS!");
@@ -90,16 +91,15 @@ public class Menu {
     static int menuOpcoes() {
         System.out.println("\n\n");
         System.out.println("------------Escolha a opção desejada:--------"
-                + "\n1 - COMPRAR CARRO"
-                + "\n2 - VENDER CARRO"
-                + "\n3 - RETIRADA DE CARRO"
-                + "\n4 - DEVOLUÇÃO DE CARRO"
-                + "\n5 - CONSULTAR POR MARCA"
-                + "\n6 - CONSULTAR POR MODELO"
-                + "\n7 - CONSULTAR POR TIPO DE CARROCERIA"
-                + "\n8 - CONSULTAR POR ID"
-                + "\n9 - CONSULTAR POR PREÇOS"
-                + "\n0 - SAIR DO SISTEMA"
+                + "\n1 - COMPRAR CARRO" //ok
+                + "\n2 - VENDER CARRO" //ok
+                + "\n3 - ALUGAR CARRO" //ok
+                + "\n4 - CONSULTAR POR MARCA" //ok
+                + "\n5 - CONSULTAR POR MODELO" //ok
+                + "\n6 - CONSULTAR POR TIPO DE CARROCERIA" //ok
+                + "\n7 - CONSULTAR POR ID" //ok
+                + "\n8 - CONSULTAR POR PREÇOS" //ok
+                + "\n0 - SAIR DO SISTEMA" //ok
                 + "\n---------------------------------------------");
         System.out.print("Digite a opção -->>");
         int opcao = sc.nextInt();
@@ -150,38 +150,34 @@ public class Menu {
                     }
 
                 case 4:
-                    System.out.println("Devolução de Carro!");
-                    break;
-
-                case 5:
                     System.out.println("Informe a marca de carro a ser pesquisada:");
                     System.out.print("Marca: ");
                     String marca = sc.next();
                     listarMarca(marca);
                     break;
 
-                case 6:
+                case 5:
                     System.out.println("Informe o modelo de carro a ser pesquisada:");
                     System.out.print("Modelo: ");
                     String modelo = sc.next();
                     listarModelo(modelo);
                     break;
 
-                case 7:
+                case 6:
                     System.out.println("Informe a carroceria de carro que deseja buscar:");
                     System.out.print("Carroceria: ");
                     String carroceria = sc.next();
                     listarTipoCarroceria(carroceria);
                     break;
 
-                case 8:
+                case 7:
                     System.out.println("Informe o ID do carro que deseja buscar: ");
                     System.out.print("IDENTIFICADOR: ");
                     int idCarro = sc.nextInt();
                     listarId(idCarro);
                     break;
 
-                case 9:
+                case 8:
                     System.out.println("Informe o Preço Inicial e o Preço Final para realização da consulta:");
                     System.out.print("Preço Inicial:");
                     double pInicial = sc.nextDouble();

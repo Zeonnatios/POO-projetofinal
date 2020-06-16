@@ -17,6 +17,7 @@ public class Aluguel extends Caixa {
         super(p);
     }
 
+    //Método para terminar um aluguel
     public void efetuarAluguel() {
         super.efetuarAluguel();
         Scanner sc = new Scanner(System.in);
@@ -26,11 +27,12 @@ public class Aluguel extends Caixa {
         System.out.print("Dia: ");
         int dia = sc.nextInt();
         dataFim = LocalDate.of(2020, mes, dia);
-        long diferencaEmDias = ChronoUnit.DAYS.between(dataVenda, dataFim);
-        valor = 126.8 * diferencaEmDias;
+        int diferencaEmDias = (int) ChronoUnit.DAYS.between(dataVenda, dataFim);
+        valor = (126.8) * diferencaEmDias;
     }
 
-    public void InfoAluguel() {
+    //Info do aluguel feito
+    public void info() {
         super.info();
         System.out.println("----------------------------------------------------------------");
         System.out.println("-------------------  INFORMAÇÕES DE ALUGUEL  -------------------");

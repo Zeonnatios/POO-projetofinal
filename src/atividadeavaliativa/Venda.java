@@ -8,11 +8,12 @@ import java.time.LocalDate;
  */
 public class Venda extends Caixa {
 
-    //CONSTRUTOR
+    //CONSTRUTOR VENDA
     public Venda(Carro p, Double valor) {
-        super(p, valor + valor * 0.23);
+        super(p, valor - valor * 0.23);
     }
 
+    //Informação da venda realizada
     public void info() {
         super.info();
         System.out.println("----------------------------------------------------------------");

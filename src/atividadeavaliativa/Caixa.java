@@ -22,6 +22,7 @@ public class Caixa {
     //CONSTRUTOR PARA ALUGUEL
     public Caixa(Carro c) {
         this.carro = c;
+        this.dataVenda = LocalDate.now();
     }
 
     public void info() {

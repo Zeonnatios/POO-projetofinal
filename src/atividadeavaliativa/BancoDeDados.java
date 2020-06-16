@@ -15,7 +15,6 @@ import java.util.TreeMap;
 
 public class BancoDeDados {
 
-    //Usar MAP
     Set<Carro> listaCarro = new HashSet<>();
     SortedMap<String, List<Carro>> byCarroceria = new TreeMap<>();
     Map<String, Carro> byMarca = new HashMap<>();
@@ -25,6 +24,7 @@ public class BancoDeDados {
     Set<Caixa> operadorCaixa = new HashSet<>();
     private int contador = 1;
 
+    //Função salvar carro na lista e nos Maps
     public void addCarro(Carro c) {
         c.cadastrar();
         c.setIdCarro(contador);
@@ -45,6 +45,7 @@ public class BancoDeDados {
         c.infoCarro();
     }
 
+    //Criar venda e salvar na lista
     public void addVenda(Carro c) {
         Caixa venda = new Venda(c, c.getPreco());
         inativarCarro(c.getIdCarro());
@@ -54,15 +55,18 @@ public class BancoDeDados {
         venda.info();
     }
 
+    //Criar aluguel e salvar na lista
     public void addAluguel(Carro c) {
         Caixa aluguel = new Aluguel(c);
         aluguel.efetuarAluguel();
         inativarCarro(c.getIdCarro());
         operadorCaixa.add(aluguel);
         System.out.println("---------------------------");
-        System.out.println("Aluguel efetuad com sucesso!");
+        System.out.println("Aluguel efetuado com sucesso!");
+        aluguel.info();
     }
 
+    //Achar carro pelo ID e que esteja disponivel
     public Carro findById(int idCarro) {
         if (this.byId.isEmpty()) {
             return null;
@@ -77,6 +81,7 @@ public class BancoDeDados {
         }
     }
 
+    //Criar lista pelo id do carro
     public List<Carro> listbyId(int id) {
         List<Carro> lista = new ArrayList<>();
         for (Map.Entry<Integer, Carro> e : byId.entrySet()) {
@@ -88,6 +93,7 @@ public class BancoDeDados {
         return lista;
     }
 
+    //Criar lista pela marca do carro
     public List<Carro> listByMarca(String marca) {
         List<Carro> lista = new ArrayList<>();
         for (Map.Entry<String, Carro> e : byMarca.entrySet()) {
@@ -99,6 +105,7 @@ public class BancoDeDados {
         return lista;
     }
 
+    //Criar lista pelo modelo do carro
     public List<Carro> listByModelo(String modelo) {
         List<Carro> lista = new ArrayList<>();
         for (Map.Entry<String, Carro> e : byModelo.entrySet()) {
@@ -110,6 +117,7 @@ public class BancoDeDados {
         return lista;
     }
 
+    //Criar lista pelo preço do carro
     public List<Carro> listByPreco(Double pInicial, Double pFinal) {
         List<Carro> lista = new ArrayList<>();
         for (Map.Entry<Double, Carro> e : byPreco.entrySet()) {
@@ -120,6 +128,7 @@ public class BancoDeDados {
         return lista;
     }
 
+    //Criar lista pelo tipo de carroceria do carro
     public List<Carro> listByCarroceria(String carroceria) {
         List<Carro> lista = new ArrayList<>();
         SortedMap<String, List<Carro>> submapa = byCarroceria.tailMap(carroceria);
@@ -136,8 +145,8 @@ public class BancoDeDados {
         return lista;
     }
 
+    //remove carro da lista de buscas
     public void removerCarro(Carro c) {
-
         List<Carro> lista = byCarroceria.get(c.getCarroceria());
         if (lista != null) {
             lista.remove(c);
@@ -150,6 +159,7 @@ public class BancoDeDados {
 
     }
 
+    //inativa carro
     public void inativarCarro(int id) {
         for (Carro objCarro : listaCarro) {
             if (objCarro.getIdCarro() == id) {
